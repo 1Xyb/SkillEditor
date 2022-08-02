@@ -1,0 +1,81 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+//绑在player身上
+public class UIPate : MonoBehaviour
+{
+    GameObject m_go;
+
+    public Text m_name;
+    public Slider m_hp,m_mp;
+    public GameObject m_gather;
+    public List<Image> m_gathers;
+    public GameObject text;
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    public void InitPate()
+    {
+        m_go = GameObject.Instantiate(Resources.Load<GameObject>("pate"));
+        m_go.transform.SetParent(UIMgr.Instance.m_hudroot.transform);//设置父级
+        m_go.transform.localPosition = Vector3.zero;
+        m_go.transform.localScale = Vector3.one;
+
+        m_name = m_go.transform.Find("name").GetComponent<Text>();
+        m_hp = m_go.transform.Find("hp").GetComponent<Slider>();
+        m_mp = m_go.transform.Find("mp").GetComponent<Slider>();
+        m_gather = m_go.transform.Find("gather").gameObject;
+        text = m_go.transform.Find("Text").gameObject;//眩晕
+        m_gathers = new List<Image>();
+        for (int i = 0; i < m_gather.transform.childCount; i++)
+        {
+            m_gathers.Add(m_gather.transform.GetChild(i).GetComponent<Image>());
+        }
+    }
+
+    public void SetData(string name,float hp,float mp)
+    {
+        m_name.text = name;
+        m_hp.value = hp;
+        m_mp.value = mp;
+    }
+
+    /// <summary>
+    /// 显示的采集物的数量       根据采集量刷新
+    /// </summary>
+    /// <param name="gather">2</param>
+    public void SetData(int gather)
+    {
+        for (int i = 0; i < m_gathers.Count; i++)
+        {
+            m_gathers[i].gameObject.SetActive(i < gather);
+        }
+    }
+
+    Vector3 camerapos = Vector3.zero;
+    private void Update()
+    {
+        //相机跟随
+        camerapos.Set(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z);
+        m_go.transform.position = World.Instance.m_main.WorldToScreenPoint(camerapos);
+    }
+
+    /// <summary>
+    /// 析构函数        在这个类的对象被垃圾回收的时候执行
+    /// </summary>
+    ~UIPate()
+    {
+        m_name = null;
+        m_hp = null;
+        m_mp = null;
+        m_gather = null;
+        if (m_gathers != null)
+        {
+            m_gathers.Clear();
+        }
+        m_gathers = null;
+    }
+}
