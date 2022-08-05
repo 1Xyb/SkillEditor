@@ -1,0 +1,103 @@
+.hidden {
+    display: none;
+}
+
+/* Example of dynamic properties
+Read from the GridBackground decorator */
+GridBackground {
+    --grid-background-color: #202020;
+    --line-color: #363636;
+    --thick-line-color: #666666;
+    --spacing:150.0;
+    --thick-lines:0;
+}
+
+FreehandElement {
+    --segment-size: 5;
+    --segment-color: #FF9900;
+    --delete-segment-color: #FF0000;
+}
+
+Layer {
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    /* Needs to set the flex-direction to row because when set to column
+    Yoga try to constrain absolute childs to that size as well.
+    This allows text within the absolute child to wrap to the size of its parent.
+    See Yoga.c YGNodeAbsoluteLayoutChild function. */
+    flex-direction: row;
+}
+
+.ge-graph-view {
+    flex: 1 1 auto;
+    flex-direction: column;
+    height: 100%;
+    min-height: 300px;
+    min-width: 300px;
+    overflow: hidden;
+
+    --dragndrop-highlight-color: rgb(37,89,145);
+    --dragndrop-highlight-background-color: rgba(37,89,145, 0.33);
+    --dragndrop-denied-color: rgb(145, 29, 19);
+    --dragndrop-denied-background-color: rgba(145, 29, 19, 0.33);
+}
+
+.ge-resizer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    padding-left: 10px;
+    padding-top: 14px;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.ge-resizer__icon {
+    background-image: resource("Builtin Skins/DarkSkin/Images/WindowBottomResize.png");
+    -unity-background-scale-mode: scale-and-crop;
+    flex: 1 0 0;
+}
+
+.ge-resizer--both-directions {
+    cursor: resize-up-left;
+}
+
+.ge-resizer--vertical {
+    cursor: resize-vertical;
+}
+
+.ge-resizer--horizontal {
+    cursor: resize-horizontal;
+    color: #ff0000;
+}
+
+#disabled-overlay {
+    display: none;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    position: absolute;
+    border-radius: 8px;
+
+}
+
+.ge-graph-view #graph-view-container {
+    flex: 1 1 auto;
+}
+
+.ge-graph-view #contentViewContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.ge-graph-view #iconsParent {
+    overflow: visible;
+}

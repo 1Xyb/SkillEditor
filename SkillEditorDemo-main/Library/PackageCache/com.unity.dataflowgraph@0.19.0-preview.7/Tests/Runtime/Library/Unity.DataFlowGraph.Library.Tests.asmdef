@@ -1,0 +1,14 @@
+{
+    "name": "Unity.DataFlowGraph.Library.Tests",
+    "references": [
+        "Unity.Entities",
+        "Unity.DataFlowGraph",
+        "Unity.Mathematics"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true
+}
